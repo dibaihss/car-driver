@@ -86,7 +86,7 @@ export class Car {
 
     // var img = new Image();
 
-    img.src =  `../../img/carsImges/${ImagePath}?sanitize=true`;
+    img.src =  `https://upload.wikimedia.org/wikipedia/commons/1/17/Yin_yang.svg`;
     if (this.level) {
       ctx.drawImage(
         img,
