@@ -86,7 +86,7 @@ export class Car {
 
     // var img = new Image();
 
-    img.src =  `../../1317286.svg`;
+    img.src =  `https://github.com/IhssanDiba/car-driver/blob/main/img/carsImges/1317286.svg`;
     if (this.level) {
       ctx.drawImage(
         img,
