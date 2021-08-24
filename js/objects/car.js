@@ -95,7 +95,7 @@ export class Car {
         this.size[1]
       );
     }
-  }https://github.com/IhssanDiba/car-driver/blob/bcd7a991b648cedc7bb61f90967078338685a06f/img/carsImges/1317286.svg
+  }
   update(deltaTime, objs) {
     this.vel[0] += this.acc * deltaTime;
     this.vel[0] *= 1 - this.friction; // Geschwindigkeit veringern
