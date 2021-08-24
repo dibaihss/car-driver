@@ -1,4 +1,4 @@
-import { changeBackground, clearCanvas, ctx, img } from "../canvas.js";
+import { changeBackground, clearCanvas, ctx } from "../canvas.js";
 
 export class Car {
   constructor(options, type) {
@@ -84,7 +84,7 @@ export class Car {
   }
   drawImage(ImagePath) {
 
-    // var img = new Image();
+    var img = new Image();
 
     img.src =  `https://github.com/IhssanDiba/car-driver/blob/main/img/carsImges/1317286.svg`;
     if (this.level) {
