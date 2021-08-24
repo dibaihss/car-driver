@@ -27,7 +27,7 @@ var invisible = false;
 for (let i = 0; i <= count; i++) {
   arrOfAutos.push(
     new Car({
-      pos: [wide, (distance -= 150)],
+      pos: [wide, (distance -= 100)],
       color: "black",
       vel: [0, 0.2],
     })
@@ -36,7 +36,7 @@ for (let i = 0; i <= count; i++) {
     arrOfAutos.push(
       new Car(
         {
-          pos: [wide + 20, (distance -= 200)],
+          pos: [wide + 20, (distance -= 150)],
           color: "black",
           vel: [0, 0.2],
         },

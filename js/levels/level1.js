@@ -49,6 +49,7 @@ const c7 = new Car({
   color: "yellow",
   vel: [0, 0.2],
 });
+
 const ai = new Invisible({
     pos: [150, -1200],
   
@@ -63,6 +64,16 @@ const ai = new Invisible({
     color: "yellow",
     vel: [0, 0.2],
   });
+  const c10 = new Car({
+    pos: [180, -1500],
+    color: "yellow",
+    vel: [0, 0.2],
+  });
+  const c11 = new Car({
+    pos: [240, -1700],
+    color: "yellow",
+    vel: [0, 0.2],
+  });
 const goal = new Goal({
   pos: [110, -2000],
   size: [320, 50],
@@ -70,6 +81,6 @@ const goal = new Goal({
   vel: [0, 0.2],
 });
 export const level1 = new Level(
-  [pp, p, c1, c2, c3, c5, c6, c7,c8 , c9, sp, ai, goal],
+  [pp, p, c1, c2, c3, c5, c6, c7,c8 , c9,c10,c11, sp, ai, goal],
   [450, 800]
 );

@@ -84,7 +84,7 @@ export class Car {
   }
   drawImage(ImagePath) {
     var img = new Image();
-    img.src =  `../../img/carsImges/${ImagePath}`;
+    img.src =  `../../img/${ImagePath}`;
     if (this.level) {
       ctx.drawImage(
         img,
@@ -139,7 +139,7 @@ export class Car {
 
             if (this.type === "Car" && !obj.abilities.invisible) {
               var img = new Image();
-              img.src =  `../../img/carsImges/fSyfzkq-flame-vector.svg`;
+              img.src =  `../../img/fSyfzkq-flame-vector.svg`;
               ctx.drawImage(
                 img,
                 this.right - 60,
