@@ -1,4 +1,4 @@
-import { changeBackground, clearCanvas, ctx } from "../canvas.js";
+import { changeBackground, clearCanvas, ctx, img } from "../canvas.js";
 
 export class Car {
   constructor(options, type) {
@@ -69,21 +69,23 @@ export class Car {
         this.drawImage("car_topview.svg");
       }
     } else if (type === "goal") {
-      this.drawImage("1317286.svg");
+      // this.drawImage("1317286.svg");
     } else if (type === "crazyCar") {
       this.drawImage("crazy_car_Front.svg");
     } else if (type === "autoCar") {
       this.drawImage("auto_car_Front.svg");
     } else if (type === "power" && !collected) {
-      this.drawImage("map-poi-fuel-pump.svg");
+      // this.drawImage("map-poi-fuel-pump.svg");
     } else if (type === "Car") {
       this.drawImage("Car_Green_Front.svg");
     } else if (type === "invisible" && !collected) {
-      this.drawImage("eye-1.1s-200px (1).svg");
+      // this.drawImage("eye-1.1s-200px (1).svg");
     }
   }
   drawImage(ImagePath) {
-    var img = new Image();
+
+    // var img = new Image();
+    console.log(img)
     img.src =  `../../img/carsImges/${ImagePath}?sanitize=true`;
     if (this.level) {
       ctx.drawImage(
