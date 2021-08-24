@@ -84,7 +84,7 @@ export class Car {
   }
   drawImage(ImagePath) {
     var img = new Image();
-    img.src = `../../img/carsImges/${ImagePath}`;
+    img.src = `https://github.com/IhssanDiba/car-driver/tree/main/img/carsImges/${ImagePath}`|| `../../img/carsImges/${ImagePath}`;
     if (this.level) {
       ctx.drawImage(
         img,
@@ -139,7 +139,7 @@ export class Car {
 
             if (this.type === "Car" && !obj.abilities.invisible) {
               var img = new Image();
-              img.src = `../../img/carsImges/fSyfzkq-flame-vector.svg`;
+              img.src = "https://github.com/IhssanDiba/car-driver/blob/main/img/fSyfzkq-flame-vector.svg" || `../../img/carsImges/fSyfzkq-flame-vector.svg`;
               ctx.drawImage(
                 img,
                 this.right - 60,
