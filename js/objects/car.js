@@ -85,7 +85,7 @@ export class Car {
   drawImage(ImagePath) {
 
     // var img = new Image();
-    console.log(img)
+
     img.src =  `../../img/carsImges/${ImagePath}?sanitize=true`;
     if (this.level) {
       ctx.drawImage(
