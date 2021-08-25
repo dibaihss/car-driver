@@ -77,11 +77,14 @@ export class Game {
     }
   }
   aControle(){
-    canvas.addEventListener('click' , (e)=>{
+var btn = document.getElementById('btn')
+
+    btn.addEventListener('click' , (e)=>{
      
       if (this.gameStatus === STATUS.ready) {
         hideInfoText();
         this.gameStart();
+        btn.style.display = 'none'
       } else if (this.gameStatus === STATUS.start) {
         showInfoText("Paused");
         this.gamePause();

@@ -23,6 +23,7 @@ main{
     font-size: larger;
     background-color: #d6d313;
   }
+
 main{
   color: #d61313;
 }
@@ -33,7 +34,14 @@ main{
   height: 700px;
 }
 #info{
-  width: 100px;
+ display: none;
 }
-  
+  #btn{
+    width: 100px;
+    position: absolute;
+    top: 60%;
+    text-align: center;
+    font-size: larger;
+    background-color: #d6d313;
+}
 }
