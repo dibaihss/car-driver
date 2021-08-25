@@ -77,17 +77,17 @@ export class Game {
     }
   }
   aControle(){
-    // canvas.addEventListener('click' , (e)=>{
+    canvas.addEventListener('click' , (e)=>{
      
-    //   if (this.gameStatus === STATUS.ready) {
-    //     hideInfoText();
-    //     this.gameStart();
-    //   } else if (this.gameStatus === STATUS.start) {
-    //     showInfoText("Paused");
-    //     this.gamePause();
-    //   } else if (this.gameStatus === STATUS.pause) {
-    //     this.gameResume();
-    //   }
-    // })
+      if (this.gameStatus === STATUS.ready) {
+        hideInfoText();
+        this.gameStart();
+      } else if (this.gameStatus === STATUS.start) {
+        showInfoText("Paused");
+        this.gamePause();
+      } else if (this.gameStatus === STATUS.pause) {
+        this.gameResume();
+      }
+    })
   }
 }
