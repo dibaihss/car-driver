@@ -1,16 +1,15 @@
 import {
   changeBackground,
   clearCanvas,
-  ctx,
-  imgAutoCar,
-  imgBoost,
-  imgCrazyCar,
-  imgInvisible,
-  imgPlayer,
-  imgCar,
-  imgGoal
+  ctx
 } from "../canvas.js";
-
+export const imgAutoCar = document.getElementById("imgAutoCar");
+export const imgCrazyCar = document.getElementById("imgCrazyCar");
+export const imgPlayer = document.getElementById("imgPlayer");
+export const imgInvisible = document.getElementById("imgInvisible");
+export const imgBoost = document.getElementById("imgBoost");
+export const imgCar = document.getElementById("imgCar");
+export const imgGoal = document.getElementById("imgGoal");
 export class Car {
   constructor(options, type) {
     let { pos, size, color, vel, acc } = options;
@@ -298,7 +297,6 @@ export class Car {
   }
   collectPower(obj) {
     if (this.collected) return;
-    obj.removeControl();
     obj.vel[1] = -0.3;
     this.collected = true;
     setTimeout(() => {

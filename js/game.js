@@ -1,4 +1,4 @@
-import { changeBackground } from "./canvas.js";
+import { canvas, changeBackground } from "./canvas.js";
 import { hideInfoText, showInfoText } from "./info.js";
 
 const STATUS = {
@@ -19,6 +19,7 @@ export class Game {
     this.currentLevelIndex = 0;
     // this.currentLevel = this.levelList[this.currentLevelIndex];
     this.addControls();
+    this.aControle();
   }
   addControls() {
     window.addEventListener("keydown", this.keyfunctionRef);
@@ -74,5 +75,19 @@ export class Game {
     } else {
       showInfoText("You have won all levels!");
     }
+  }
+  aControle(){
+    // canvas.addEventListener('click' , (e)=>{
+     
+    //   if (this.gameStatus === STATUS.ready) {
+    //     hideInfoText();
+    //     this.gameStart();
+    //   } else if (this.gameStatus === STATUS.start) {
+    //     showInfoText("Paused");
+    //     this.gamePause();
+    //   } else if (this.gameStatus === STATUS.pause) {
+    //     this.gameResume();
+    //   }
+    // })
   }
 }

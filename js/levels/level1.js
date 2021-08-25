@@ -70,7 +70,7 @@ const ai = new Invisible({
     vel: [0, 0.2],
   });
   const c11 = new Car({
-    pos: [240, -1700],
+    pos: [240, -1750],
     color: "yellow",
     vel: [0, 0.2],
   });
