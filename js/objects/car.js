@@ -1,4 +1,15 @@
-import { changeBackground, clearCanvas, ctx , img} from "../canvas.js";
+import {
+  changeBackground,
+  clearCanvas,
+  ctx,
+  imgAutoCar,
+  imgBoost,
+  imgCrazyCar,
+  imgInvisible,
+  imgPlayer,
+  imgCar,
+  imgGoal
+} from "../canvas.js";
 
 export class Car {
   constructor(options, type) {
@@ -64,36 +75,93 @@ export class Car {
   draw(type = null, collected) {
     if (type === "player") {
       if (this.abilities.invisible) {
-        this.drawImage("eye-1.1s-200px (1).svg");
+        this.drawImage("invisible");
       } else {
-        this.drawImage("car_topview.svg");
+        this.drawImage("player");
       }
     } else if (type === "goal") {
-      // this.drawImage("1317286.svg");
+      this.drawImage("goal");
     } else if (type === "crazyCar") {
-      this.drawImage("crazy_car_Front.svg");
+      this.drawImage("crazycar");
     } else if (type === "autoCar") {
-      this.drawImage("auto_car_Front.svg");
+      this.drawImage("autocar");
     } else if (type === "power" && !collected) {
-      // this.drawImage("map-poi-fuel-pump.svg");
+      this.drawImage("boost");
     } else if (type === "Car") {
-      this.drawImage("Car_Green_Front.svg");
+      this.drawImage("car");
     } else if (type === "invisible" && !collected) {
-      // this.drawImage("eye-1.1s-200px (1).svg");
+      this.drawImage("invisible");
     }
   }
   drawImage(ImagePath) {
-
     // var img = new Image();
     // img.src =  `https://github.com/IhssanDiba/car-driver/blob/bcd7a991b648cedc7bb61f90967078338685a06f/img/carsImges/1317286.svg`;
     if (this.level) {
-      ctx.drawImage(
-        img,
-        this.pos[0],
-        this.pos[1] - this.level.cameraPos[1],
-        this.size[0],
-        this.size[1]
-      );
+      switch (ImagePath) {
+        case "autocar":
+          ctx.drawImage(
+            imgAutoCar,
+            this.pos[0],
+            this.pos[1] - this.level.cameraPos[1],
+            this.size[0],
+            this.size[1]
+          );
+          break;
+        case "crazycar":
+          ctx.drawImage(
+            imgCrazyCar,
+            this.pos[0],
+            this.pos[1] - this.level.cameraPos[1],
+            this.size[0],
+            this.size[1]
+          );
+          break;
+        case "invisible":
+          ctx.drawImage(
+            imgInvisible,
+            this.pos[0],
+            this.pos[1] - this.level.cameraPos[1],
+            this.size[0],
+            this.size[1]
+          );
+          break;
+        case "boost":
+          ctx.drawImage(
+            imgBoost,
+            this.pos[0],
+            this.pos[1] - this.level.cameraPos[1],
+            this.size[0],
+            this.size[1]
+          );
+          break;
+        case "player":
+          ctx.drawImage(
+            imgPlayer,
+            this.pos[0],
+            this.pos[1] - this.level.cameraPos[1],
+            this.size[0],
+            this.size[1]
+          );
+          break;
+        case "car":
+          ctx.drawImage(
+            imgCar,
+            this.pos[0],
+            this.pos[1] - this.level.cameraPos[1],
+            this.size[0],
+            this.size[1]
+          );
+          break;
+          case "goal":
+            ctx.drawImage(
+              imgGoal,
+              this.pos[0],
+              this.pos[1] - this.level.cameraPos[1],
+              this.size[0],
+              this.size[1]
+            );
+            break;
+      }
     }
   }
   update(deltaTime, objs) {
@@ -140,7 +208,7 @@ export class Car {
 
             if (this.type === "Car" && !obj.abilities.invisible) {
               var img = new Image();
-              img.src =  `../../img/carsImges/fSyfzkq-flame-vector.svg`;
+              img.src = `../../img/carsImges/fSyfzkq-flame-vector.svg`;
               ctx.drawImage(
                 img,
                 this.right - 60,
