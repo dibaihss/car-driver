@@ -1,4 +1,4 @@
-import { canvas, changeBackground } from "./canvas.js";
+import { canvas, changeBackground, Startbtn } from "./canvas.js";
 import { hideInfoText, showInfoText } from "./info.js";
 
 const STATUS = {
@@ -66,6 +66,8 @@ export class Game {
         this.gamePause();
         setTimeout(() => {
             showInfoText(this.currentLevel.hint);
+            
+           Startbtn.style.display = 'block'
         }, 1001);
       }
       if (this.currentLevel.background) {
@@ -77,19 +79,20 @@ export class Game {
     }
   }
   aControle(){
-var btn = document.getElementById('btn')
 
-    btn.addEventListener('click' , (e)=>{
+
+    Startbtn.addEventListener('click' , (e)=>{
      
       if (this.gameStatus === STATUS.ready) {
         hideInfoText();
         this.gameStart();
-        btn.style.display = 'none'
+        Startbtn.style.display = 'none'
       } else if (this.gameStatus === STATUS.start) {
         showInfoText("Paused");
         this.gamePause();
       } else if (this.gameStatus === STATUS.pause) {
         this.gameResume();
+        Startbtn.style.display = 'none'
       }
     })
   }
