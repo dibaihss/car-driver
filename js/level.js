@@ -17,7 +17,6 @@ export class Level {
     this.player = null;
     this.hint = hint || null;
     this.background = background;
-    
   }
   addObjects() {}
   updateCamera() {
@@ -43,6 +42,7 @@ export class Level {
       if (obj.type === "Player") {
         obj.update(deltaTime, this.objects);
         obj.draw("player");
+        this.player.drawAvailableLives();
       } else if (obj.type === "AutoCar") {
         obj.update(deltaTime, this.objects);
         obj.draw("autoCar");
@@ -57,16 +57,15 @@ export class Level {
         obj.player = this.player;
       } else if (obj.type === "Power") {
         obj.update(deltaTime, this.objects);
-        obj.draw("power" , obj.collected);
+        obj.draw("power", obj.collected);
         obj.player = this.player;
-      }else if (obj.type === "Invisible") {
+      } else if (obj.type === "Invisible") {
         obj.update(deltaTime, this.objects);
-        obj.draw("invisible" , obj.collected);
+        obj.draw("invisible", obj.collected);
         obj.player = this.player;
-      } 
-       else if(obj.type === 'Car'){
+      } else if (obj.type === "Car") {
         obj.update(deltaTime, this.objects);
-        obj.draw('Car');
+        obj.draw("Car");
         obj.player = this.player;
       }
     });
@@ -80,7 +79,20 @@ export class Level {
   checkLosing() {
     if (!this.lost) return;
     showInfoText("Game Over");
+    console.log(this.player.lives);
+    this.player.lives -= 1;
     this.timer.pause();
+    if (this.player.lives === 0) {
+      showInfoText("Game Over no more available lives");
+
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
+    } else {
+      this.startOver();
+    }
+  }
+  startOver() {
     setTimeout(() => {
       hideInfoText();
       this.reset();

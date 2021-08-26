@@ -57,7 +57,6 @@ export class Game {
     this.currentLevel.timer.start();
   }
   startNextLevel() {
-    
     this.currentLevelIndex++;
     if (this.currentLevel) {
       this.currentLevel.startLevel();
@@ -65,36 +64,31 @@ export class Game {
       if (this.currentLevel.hint) {
         this.gamePause();
         setTimeout(() => {
-            showInfoText(this.currentLevel.hint);
-            
-           Startbtn.style.display = 'block'
+          showInfoText(this.currentLevel.hint);
+
+          Startbtn.style.display = "block";
         }, 1001);
       }
       if (this.currentLevel.background) {
         changeBackground(this.currentLevel.background);
       }
-
     } else {
       showInfoText("You have won all levels!");
     }
   }
-  aControle(){
-
-
-    Startbtn.addEventListener('click' , (e)=>{
-     
+  aControle() {
+    Startbtn.addEventListener("click", (e) => {
       if (this.gameStatus === STATUS.ready) {
         hideInfoText();
         this.gameStart();
-        Startbtn.style.display = 'none'
+        Startbtn.style.display = "none";
       } else if (this.gameStatus === STATUS.start) {
         showInfoText("Paused");
         this.gamePause();
       } else if (this.gameStatus === STATUS.pause) {
         this.gameResume();
-        Startbtn.style.display = 'none'
+        Startbtn.style.display = "none";
       }
-    })
+    });
   }
- 
 }

@@ -21,9 +21,11 @@ export class Player extends Car {
       invisible: false,
     };
     this.startX = 0;
+    this.lives = 4;
     this.audio = document.getElementById("audio");
     this.driveCar = document.getElementById('drive')
     this.sound()
+   
   }
   addControls() {
     window.addEventListener("keydown", (e) => {
@@ -101,12 +103,23 @@ this.puaseAudio()
 
 play(){
   this.driveCar.pause()
-  this.audio.setAttribute("preload", "auto");
-  this.audio.setAttribute("controls", "none");
+
   this.audio.play();
 }
 puaseAudio(){
   this.audio.pause();
   this.driveCar.play()
 }
+drawAvailableLives(){
+  var x = 0;
+  for(let i = 1; i <= this.lives; i++){
+  console.log('sadd')
+
+    var heart = new Image()
+  heart.src = "https://upload.wikimedia.org/wikipedia/commons/f/f1/Heart_coraz%C3%B3n.svg"
+  ctx.drawImage(heart, x += 30,30 , 20 ,20)
+  }
+  
 }
+}
+// next task it is making this game 'https://www.w3schools.com/graphics/tryit.asp?filename=trygame_default_gravity'
