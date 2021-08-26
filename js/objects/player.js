@@ -1,3 +1,4 @@
+
 import { canvas, clearCanvas, ctx } from "../canvas.js";
 import { Car } from "./car.js";
 
@@ -20,6 +21,9 @@ export class Player extends Car {
       invisible: false,
     };
     this.startX = 0;
+    this.audio = document.getElementById("audio");
+    this.driveCar = document.getElementById('drive')
+    this.sound()
   }
   addControls() {
     window.addEventListener("keydown", (e) => {
@@ -31,9 +35,13 @@ export class Player extends Car {
           this.acc = this.movingSpeed;
           break;
         case "ArrowUp":
+          this.play()
           this.vel[1] = -0.15;
+         
           break;
       }
+      e.preventDefault()
+
     });
 
     window.addEventListener("keyup", (e) => {
@@ -45,6 +53,7 @@ export class Player extends Car {
           this.acc = 0;
           break;
         case "ArrowUp":
+this.puaseAudio()
           this.vel[1] = 0;
           break;
       }
@@ -85,5 +94,19 @@ export class Player extends Car {
       }, 90);
     }, false)
   }
+  sound() {
+  
+    this.driveCar.play()
+  }
 
+play(){
+  this.driveCar.pause()
+  this.audio.setAttribute("preload", "auto");
+  this.audio.setAttribute("controls", "none");
+  this.audio.play();
+}
+puaseAudio(){
+  this.audio.pause();
+  this.driveCar.play()
+}
 }

@@ -1,8 +1,5 @@
-import {
-  changeBackground,
-  clearCanvas,
-  ctx
-} from "../canvas.js";
+import { changeBackground, clearCanvas, ctx } from "../canvas.js";
+import { explosion } from "../sounds.js";
 export const imgAutoCar = document.getElementById("imgAutoCar");
 export const imgCrazyCar = document.getElementById("imgCrazyCar");
 export const imgPlayer = document.getElementById("imgPlayer");
@@ -151,15 +148,15 @@ export class Car {
             this.size[1]
           );
           break;
-          case "goal":
-            ctx.drawImage(
-              imgGoal,
-              this.pos[0],
-              this.pos[1] - this.level.cameraPos[1],
-              this.size[0],
-              this.size[1]
-            );
-            break;
+        case "goal":
+          ctx.drawImage(
+            imgGoal,
+            this.pos[0],
+            this.pos[1] - this.level.cameraPos[1],
+            this.size[0],
+            this.size[1]
+          );
+          break;
       }
     }
   }
@@ -206,6 +203,8 @@ export class Car {
             }
 
             if (this.type === "Car" && !obj.abilities.invisible) {
+              obj.driveCar.pause();
+
               var img = new Image();
               img.src = `../../img/carsImges/fSyfzkq-flame-vector.svg`;
               ctx.drawImage(
@@ -216,6 +215,8 @@ export class Car {
                 100,
                 100
               );
+
+              explosion.play();
             }
 
             if (this.type === "Goal") {
