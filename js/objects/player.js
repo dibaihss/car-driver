@@ -13,12 +13,13 @@ export class Player extends Car {
       (type = "Player")
     );
     this.addControls();
-    this.goSwibe();
+    this.addTouchControl()
     this.movingSpeed = 0.012;
     this.vel[1] = -0.01;
     this.abilities = {
       invisible: false,
     };
+    this.startX = 0;
   }
   addControls() {
     window.addEventListener("keydown", (e) => {
@@ -49,112 +50,40 @@ export class Player extends Car {
       }
     });
   }
-  swipedetect(callback) {
-    var touchsurface = canvas,
-      swipedir,
-      startX,
-      startY,
-      distX,
-      distY,
-      threshold = 30, //required min distance traveled to be considered swipe
-      restraint = 100, // maximum distance allowed at the same time in perpendicular direction
-      allowedTime = 300, // maximum time allowed to travel that distance
-      elapsedTime,
-      startTime,
-      handleswipe = callback || function (swipedir) {};
+  addTouchControl(){
+    window.addEventListener('touchstart' , (e)=>{
+     this.startX = e.changedTouches[0].pageX
+      var startY = e.changedTouches[0].pageY
 
-    touchsurface.addEventListener(
-      "touchstart",
-      function (e) {
-        var touchobj = e.changedTouches[0];
-        swipedir = "none";
-        var dist = 0;
-        startX = touchobj.pageX;
-        startY = touchobj.pageY;
-        startTime = new Date().getTime(); // record time when finger first makes contact with surface
-        e.preventDefault();
-      },
-      false
-    );
-
-    touchsurface.addEventListener(
-      "touchmove",
-      function (e) {
-        e.preventDefault(); // prevent scrolling when inside DIV
-      },
-      false
-    );
-
-    touchsurface.addEventListener(
-      "touchend",
-   (e) =>{
-        var touchobj = e.changedTouches[0];
-        distX = touchobj.pageX - startX; // get horizontal dist traveled by finger while in contact with surface
-        distY = touchobj.pageY - startY; // get vertical dist traveled by finger while in contact with surface
-        elapsedTime = new Date().getTime() - startTime; // get time elapsed
-        if (elapsedTime <= allowedTime) {
-          // first condition for awipe met
-          if (Math.abs(distX) >= threshold && Math.abs(distY) <= restraint) {
-            // 2nd condition for horizontal swipe met
-            swipedir = distX < 0 ? "left" : "right"; // if dist traveled is negative, it indicates left swipe
-            console.log(swipedir)
-            if (swipedir === "right") {
-              this.acc = this.movingSpeed;
-            }
-            if (swipedir === "left") {
-              this.acc = -this.movingSpeed;
-            }
-            setTimeout(()=>{
-              this.acc = 0
-            }, 130)
-          } else if (
-            Math.abs(distY) >= threshold &&
-            Math.abs(distX) <= restraint
-          ) {
-            // 2nd condition for vertical swipe met
-            swipedir = distY < 0 ? "up" : "down"; // if dist traveled is negative, it indicates up swipe
-          }
-        }
-        handleswipe(swipedir);
-        e.preventDefault();
-      },
-      false
-    );
-  }
-  goSwibe() {
-    this.swipedetect((swipedir) => {
-      // window.addEventListener(
-      //   "touchstart",
-      //   (e) => {
-      //     if (swipedir === "right") {
-      //       this.acc = this.movingSpeed;
-      //     }
-      //     if (swipedir === "left") {
-      //       this.acc = -this.movingSpeed;
-      //     }
-      //   },
-      //   false
-      // );
-      // window.addEventListener(
-      //   "touchend",
-      //   (e) => {
-      //     if (swipedir === "right") {
-      //       this.acc = 0;
-      //     }
-      //     if (swipedir === "left") {
-      //       this.acc = 0;
-      //     }
-      //   },
-      //   false
-      // );
-      console.log(swipedir);
-      if (swipedir == "left") {
-        console.log("You just swiped left!");
+    }, false)
+    canvas.addEventListener(
+          "touchmove",
+           (e) =>{
+            e.preventDefault(); // prevent scrolling when inside DIV
+          },
+          false
+        );
+    window.addEventListener('touchend' , (e)=>{
+      var distX = e.changedTouches[0].pageX - this.startX
+      console.log(distX)
+      if(distX > 20 && distX <= 110){
+       this.acc = this.movingSpeed;
       }
-      if (swipedir == "right") {
-        console.log("You just swiped right!");
+      if(distX < -20 && distX >  -110){
+        this.acc = -this.movingSpeed;
+
       }
-    });
+      if(distX > 110)
+      this.acc = this.movingSpeed + 0.006
+
+      if(distX < -110)
+      this.acc = -this.movingSpeed - 0.006
+
+      console.log(this.acc)
+      setTimeout(() => {
+        this.acc = 0
+      }, 90);
+    }, false)
   }
 
 }
