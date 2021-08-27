@@ -7,6 +7,8 @@ export const imgInvisible = document.getElementById("imgInvisible");
 export const imgBoost = document.getElementById("imgBoost");
 export const imgCar = document.getElementById("imgCar");
 export const imgGoal = document.getElementById("imgGoal");
+export const imgFlame = document.getElementById("imgFlame");
+
 export class Car {
   constructor(options, type) {
     let { pos, size, color, vel, acc } = options;
@@ -205,10 +207,8 @@ export class Car {
             if (this.type === "Car" && !obj.abilities.invisible) {
               obj.driveCar.pause();
 
-              var img = new Image();
-              img.src = `../../img/carsImges/fSyfzkq-flame-vector.svg`;
               ctx.drawImage(
-                img,
+                imgFlame,
                 this.right - 60,
                 obj.top - 90 - this.level.cameraPos[1],
 

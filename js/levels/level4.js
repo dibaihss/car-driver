@@ -48,7 +48,7 @@ for (let i = 0; i <= count; i++) {
     arrOfAutos.push(
       new Car(
         {
-          pos: [wide, (distance -= 250)],
+          pos: [wide, (distance -= 200)],
           color: "black",
           vel: [0, 0.2],
         },
@@ -59,7 +59,7 @@ for (let i = 0; i <= count; i++) {
   if (distance < -1000) {
     arrOfAutos.push(
       new Power({
-        pos: [wide, (distance -= 400)],
+        pos: [wide, (distance -= 300)],
       })
     );
     if (invisible) {
