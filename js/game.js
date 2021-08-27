@@ -26,7 +26,6 @@ export class Game {
   }
   keyfunction(e) {
     if (e.key === " ") {
-      console.log(this.gameStatus);
       if (this.gameStatus === STATUS.ready) {
         hideInfoText();
         this.gameStart();
@@ -42,6 +41,7 @@ export class Game {
     return this.levelList[this.currentLevelIndex];
   }
   gameStart() {
+    localStorage.setItem("cl", 0);
     this.levelList[this.currentLevelIndex].startLevel();
     this.gameStatus = STATUS.start;
   }
@@ -58,22 +58,71 @@ export class Game {
   }
   startNextLevel() {
     this.currentLevelIndex++;
-    if (this.currentLevel) {
-      this.currentLevel.startLevel();
+    if (/(android)/i.test(navigator.userAgent)) {
+      var cl = localStorage.getItem("cl");
+      parseInt(cl);
 
-      if (this.currentLevel.hint) {
-        this.gamePause();
-        setTimeout(() => {
-          showInfoText(this.currentLevel.hint);
+      if (cl === 0) {
+        cl++;
+        if (this.levelList[0]) {
+          this.levelList[0].startLevel();
 
-          Startbtn.style.display = "block";
-        }, 1001);
-      }
-      if (this.currentLevel.background) {
-        changeBackground(this.currentLevel.background);
+          if (this.levelList[0].hint) {
+            this.gamePause();
+            setTimeout(() => {
+              showInfoText(this.levelList[0].hint);
+
+              Startbtn.style.display = "block";
+            }, 1001);
+          }
+          if (this.levelList[0].background) {
+            changeBackground(this.levelList[0].background);
+          }
+        } else {
+          showInfoText("You have won all levels!");
+        }
+      } else {
+        console.log(cl);
+
+        cl++;
+        console.log(cl);
+        localStorage.setItem("cl", cl);
+        if (this.levelList[cl]) {
+          this.levelList[cl].startLevel();
+
+          if (this.levelList[cl].hint) {
+            this.gamePause();
+            setTimeout(() => {
+              showInfoText(this.levelList[cl].hint);
+
+              Startbtn.style.display = "block";
+            }, 1001);
+          }
+          if (this.levelList[cl].background) {
+            changeBackground(this.levelList[cl].background);
+          }
+        } else {
+          showInfoText("You have won all levels!");
+        }
       }
     } else {
-      showInfoText("You have won all levels!");
+      if (this.currentLevel) {
+        this.currentLevel.startLevel();
+
+        if (this.currentLevel.hint) {
+          this.gamePause();
+          setTimeout(() => {
+            showInfoText(this.currentLevel.hint);
+
+            Startbtn.style.display = "block";
+          }, 1001);
+        }
+        if (this.currentLevel.background) {
+          changeBackground(this.currentLevel.background);
+        }
+      } else {
+        showInfoText("You have won all levels!");
+      }
     }
   }
   aControle() {

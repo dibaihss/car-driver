@@ -21,7 +21,7 @@ export class Player extends Car {
       invisible: false,
     };
     this.startX = 0;
-    this.lives = 4;
+    this.lives = 3;
     this.audio = document.getElementById("audio");
     this.driveCar = document.getElementById('drive')
     this.sound()
@@ -76,7 +76,6 @@ this.puaseAudio()
         );
     window.addEventListener('touchend' , (e)=>{
       var distX = e.changedTouches[0].pageX - this.startX
-      console.log(distX)
       if(distX > 20 && distX <= 110){
        this.acc = this.movingSpeed;
       }
@@ -89,8 +88,6 @@ this.puaseAudio()
 
       if(distX < -110)
       this.acc = -this.movingSpeed - 0.006
-
-      console.log(this.acc)
       setTimeout(() => {
         this.acc = 0
       }, 90);
@@ -113,7 +110,6 @@ puaseAudio(){
 drawAvailableLives(){
   var x = 0;
   for(let i = 1; i <= this.lives; i++){
-  console.log('sadd')
 
     var heart = new Image()
   heart.src = "https://upload.wikimedia.org/wikipedia/commons/f/f1/Heart_coraz%C3%B3n.svg"
