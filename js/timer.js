@@ -13,9 +13,9 @@ export class Timer {
     var Android = /(android)/i.test(navigator.userAgent);
 
     if (Android) {
-      this.deltaTime = 1000 / 20;
+      this.deltaTime = 1000 / 28;
 
-      this.fps = 20;
+      this.fps = 28;
       console.log("here");
     }
     console.log(this.fps, this.deltaTime);
