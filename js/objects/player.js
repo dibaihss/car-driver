@@ -108,14 +108,13 @@ puaseAudio(){
   this.driveCar.play()
 }
 drawAvailableLives(){
+
   var x = 0;
   for(let i = 1; i <= this.lives; i++){
 
-    var heart = new Image()
-  heart.src = "https://upload.wikimedia.org/wikipedia/commons/f/f1/Heart_coraz%C3%B3n.svg"
-  ctx.drawImage(heart, x += 30,30 , 20 ,20)
+  var heartImg = document.getElementById('imgHeart')
+
+   ctx.drawImage(heartImg, x += 30,30 , 20 ,20)
   }
-  
 }
 }
-// next task it is making this game 'https://www.w3schools.com/graphics/tryit.asp?filename=trygame_default_gravity'

@@ -17,9 +17,8 @@ export class Game {
       level.index = this.levelList.length;
     }
     this.currentLevelIndex = 0;
-    // this.currentLevel = this.levelList[this.currentLevelIndex];
     this.addControls();
-    this.aControle();
+    this.androidControle();
   }
   addControls() {
     window.addEventListener("keydown", this.keyfunctionRef);
@@ -41,7 +40,7 @@ export class Game {
     return this.levelList[this.currentLevelIndex];
   }
   gameStart() {
-    localStorage.setItem("cl", 0);
+
     this.levelList[this.currentLevelIndex].startLevel();
     this.gameStatus = STATUS.start;
   }
@@ -58,54 +57,7 @@ export class Game {
   }
   startNextLevel() {
     this.currentLevelIndex++;
-    if (/(android)/i.test(navigator.userAgent)) {
-      var cl = localStorage.getItem("cl");
-      parseInt(cl);
-
-      if (cl === 0) {
-        cl++;
-        if (this.levelList[0]) {
-          this.levelList[0].startLevel();
-
-          if (this.levelList[0].hint) {
-            this.gamePause();
-            setTimeout(() => {
-              showInfoText(this.levelList[0].hint);
-
-              Startbtn.style.display = "block";
-            }, 1001);
-          }
-          if (this.levelList[0].background) {
-            changeBackground(this.levelList[0].background);
-          }
-        } else {
-          showInfoText("You have won all levels!");
-        }
-      } else {
-        console.log(cl);
-
-        cl++;
-        console.log(cl);
-        localStorage.setItem("cl", cl);
-        if (this.levelList[cl]) {
-          this.levelList[cl].startLevel();
-
-          if (this.levelList[cl].hint) {
-            this.gamePause();
-            setTimeout(() => {
-              showInfoText(this.levelList[cl].hint);
-
-              Startbtn.style.display = "block";
-            }, 1001);
-          }
-          if (this.levelList[cl].background) {
-            changeBackground(this.levelList[cl].background);
-          }
-        } else {
-          showInfoText("You have won all levels!");
-        }
-      }
-    } else {
+   
       if (this.currentLevel) {
         this.currentLevel.startLevel();
 
@@ -123,9 +75,9 @@ export class Game {
       } else {
         showInfoText("You have won all levels!");
       }
-    }
+    
   }
-  aControle() {
+  androidControle() {
     Startbtn.addEventListener("click", (e) => {
       if (this.gameStatus === STATUS.ready) {
         hideInfoText();

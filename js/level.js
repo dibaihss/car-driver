@@ -23,7 +23,8 @@ export class Level {
     this.cameraPos[1] = minmax(this.player.top - canvas.height / 2);
   }
   startLevel() {
-    this.timer.start();
+    // this.timer.start();
+    this.timer.startAnimating()
   }
   update(deltaTime) {
     const foundPlayer = this.objects.find((obj) => {
