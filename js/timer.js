@@ -6,7 +6,7 @@ export class Timer {
     this.paused = false;
     this.accumulatedTime = 0; // wie viel Zeit ist vergangen
     this.lastTime = null;
-    this.fps = 50;
+    this.fps = 60;
     this.fpsInterval;
     this.startTime;
     this.now;
