@@ -2,11 +2,11 @@
 
 export class Timer {
   constructor() {
-    this.deltaTime = 1000 / 60;
+    this.deltaTime = 1000 / 30;
     this.paused = false;
     this.accumulatedTime = 0; // wie viel Zeit ist vergangen
     this.lastTime = null;
-    this.fps = 60;
+    this.fps = 30;
     this.fpsInterval;
     this.startTime;
     this.now;
