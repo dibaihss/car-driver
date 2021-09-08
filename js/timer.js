@@ -1,17 +1,30 @@
-
-
 export class Timer {
   constructor() {
-    this.deltaTime = 1000 / 20;
+    this.deltaTime = 1000 / 60;
     this.paused = false;
     this.accumulatedTime = 0; // wie viel Zeit ist vergangen
     this.lastTime = null;
-    this.fps = 20;
+    this.fps = 60;
     this.fpsInterval;
     this.startTime;
     this.now;
     this.then;
     this.elapsed;
+    var Android = /(android)/i.test(navigator.userAgent);
+
+    if (Android) {
+      this.deltaTime = 1000 / 20;
+
+      this.fps = 20;
+      console.log("here");
+    }
+    console.log(this.fps, this.deltaTime);
+    const selectFrame = document.getElementById("selectFrame");
+    selectFrame.addEventListener("input", (e) => {
+      console.log(e.target.value);
+      this.deltaTime = 1000 / e.target.value;
+      this.fps = e.target.value;
+    });
   }
   startAnimating() {
     this.fpsInterval = 1000 / this.fps;
@@ -35,8 +48,8 @@ export class Timer {
       // Get ready for next frame by setting then=now, but also adjust for your
       // specified fpsInterval not being a multiple of RAF's interval (16.7ms)
       this.then = this.now - (this.elapsed % this.fpsInterval);
-  
-    this.update(this.deltaTime);
+
+      this.update(this.deltaTime);
       // Put your drawing code here
     }
   }
