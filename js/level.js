@@ -1,4 +1,4 @@
-import { canvas, clearCanvas } from "./canvas.js";
+import { canvas, changeBackground, clearCanvas } from "./canvas.js";
 import { hideInfoText, showInfoText } from "./info.js";
 import { Timer } from "./timer.js";
 import { minmax } from "./utils.js";
@@ -17,6 +17,8 @@ export class Level {
     this.player = null;
     this.hint = hint || null;
     this.background = background;
+    this.originalObjs = [...this.objects];
+    this.background ? changeBackground(background) : "";
   }
   addObjects() {}
   updateCamera() {
@@ -24,7 +26,8 @@ export class Level {
   }
   startLevel() {
     // this.timer.start();
-    this.timer.startAnimating()
+    if (this.background) changeBackground(this.background);
+    this.timer.startAnimating();
   }
   update(deltaTime) {
     const foundPlayer = this.objects.find((obj) => {
@@ -44,11 +47,12 @@ export class Level {
         obj.update(deltaTime, this.objects);
         obj.draw("player");
         this.player.drawAvailableLives();
-      } else if (obj.type === "AutoCar") {
+        this.player.drawAvailableBombs();
+      } else if (obj.type === "AutoCar" && !obj.destroyed) {
         obj.update(deltaTime, this.objects);
         obj.draw("autoCar");
         obj.player = this.player;
-      } else if (obj.type === "CrazyCar") {
+      } else if (obj.type === "CrazyCar" && !obj.destroyed) {
         obj.update(deltaTime, this.objects);
         obj.draw("crazyCar");
         obj.player = this.player;
@@ -60,20 +64,39 @@ export class Level {
         obj.update(deltaTime, this.objects);
         obj.draw("power", obj.collected);
         obj.player = this.player;
+      } else if (obj.type === "Fuel") {
+        obj.update(deltaTime, this.objects);
+        obj.draw("Fuel", obj.collected);
+        obj.player = this.player;
       } else if (obj.type === "Invisible") {
         obj.update(deltaTime, this.objects);
         obj.draw("invisible", obj.collected);
         obj.player = this.player;
-      } else if (obj.type === "Car") {
+      } else if (obj.type === "Car" && !obj.destroyed) {
         obj.update(deltaTime, this.objects);
         obj.draw("Car");
+        obj.player = this.player;
+      } else if (obj.type === "ChildCar" && !obj.destroyed) {
+        obj.update(deltaTime, this.objects);
+        obj.draw("ChildCar");
+        obj.player = this.player;
+      } else if (obj.type === "Bomb") {
+        obj.update(deltaTime, this.objects);
+        obj.draw("Bomb", obj.collected);
+        obj.player = this.player;
+      } else if (obj.type === "FiredBomb" && !obj.collected) {
+        obj.update(deltaTime, this.objects);
+        obj.draw("FiredBomb", obj.collected);
         obj.player = this.player;
       }
     });
   }
   reset() {
+    this.objects = this.originalObjs;
     this.objects.forEach((obj) => {
       obj.reset();
+      obj.destroyed = false;
+      obj.collected = false;
     });
     this.cameraPos = [...this.originalCameraPos];
   }
@@ -95,6 +118,7 @@ export class Level {
   startOver() {
     setTimeout(() => {
       hideInfoText();
+      this.player.fuelStatus = 1;
       this.reset();
       this.lost = false;
       this.timer.paused = false;

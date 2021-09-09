@@ -13,12 +13,17 @@
         <img style="display: none;" alt=""  src="./img/carsImges/crazy_car_Front.svg" id="imgCrazyCar">
         <img style="display: none;" alt=""  src="./img/carsImges/car_topview.svg" id="imgPlayer">
         <img style="display: none;" alt=""  src="./img/carsImges/eye-1.1s-200px (1).svg" id="imgInvisible">
-        <img style="display: none;" alt=""  src="./img/carsImges/map-poi-fuel-pump.svg" id="imgBoost">
+        <img style="display: none;" alt=""  src="./img/carsImges/map-poi-fuel-pump.svg" id="imgFuel">
+        <img style="display: none;" alt=""  src="./img/carsImges/races-speed-svgrepo-com.svg" id="imgBoost">
+
         <img style="display: none;" alt=""  src="./img/carsImges/Car_Green_Front.svg" id="imgCar">
         <img style="display: none;" alt=""  src="./img/carsImges/1317286.svg" id="imgGoal">
          <img style="display: none;" alt=""  src="./img/carsImges/auto_car_Front.svg" id="imgAutoCar">
          <img style="display: none;" alt=""  src="./img/carsImges/fSyfzkq-flame-vector.svg" id="imgFlame">
          <img style="display: none;" alt=""  src="./img/carsImges/Drawn_heart.svg" id="imgHeart">
+         <img style="display: none;" alt=""  src="./img/carsImges/childCar.svg" id="imgChildCar">
+         <img style="display: none;" alt=""  src="./img/carsImges/Bomb_icon.svg" id="imgBomb">
+         <img style="display: none;" alt=""  src="./img/carsImges/fired-bullet-publicdomainvectors.svg" id="imgFiredBomb">
 
 
     <canvas id="canvas" width="600" height="800"></canvas>
@@ -26,6 +31,7 @@
     <section id="info"> 
 
     </section>
+    <progress id="fuelStatus" value="1"></progress>
 </main>
 <select name="" id="selectFrame">
     <option value="1">1</option>
@@ -69,8 +75,9 @@
 
 
 </select>
+
 <audio style="display:none;" src="./sounds/mixkit-old-car-arriving-1536-[AudioTrimmer.com].wav" controls preload="auto" id="audio"  loop></audio>
-<audio style="display:none;" src="./sounds/normalSpeed.wav" controls preload="auto" id="drive" loop></audio>
+<audio style="display:none;" src="./sounds/mixkit-old-car-arriving-1536-[AudioTrimmer.com].wav" playbackRate='0.5' controls preload="auto" id="drive" loop ></audio>
 <audio style="display:none;" src="./sounds/mixkit-sea-mine-explosion-1184.wav" controls preload="auto" id="explosion"></audio>
 
 <script type="module" src="./js/main.js"></script>

@@ -1,17 +1,26 @@
-import { changeBackground, clearCanvas, ctx } from "../canvas.js";
+import { ctx } from "../canvas.js";
+import {
+  fuelStatus,
+  imgAutoCar,
+  imgBomb,
+  imgFuel,
+  imgCar,
+  imgChildCar,
+  imgCrazyCar,
+  imgFiredBomb,
+  imgFlame,
+  imgGoal,
+  imgInvisible,
+  imgPlayer,
+  imgBoost,
+} from "../Htmlelement.js";
 import { explosion } from "../sounds.js";
-export const imgAutoCar = document.getElementById("imgAutoCar");
-export const imgCrazyCar = document.getElementById("imgCrazyCar");
-export const imgPlayer = document.getElementById("imgPlayer");
-export const imgInvisible = document.getElementById("imgInvisible");
-export const imgBoost = document.getElementById("imgBoost");
-export const imgCar = document.getElementById("imgCar");
-export const imgGoal = document.getElementById("imgGoal");
-export const imgFlame = document.getElementById("imgFlame");
 
 export class Car {
   constructor(options, type) {
-    let { pos, size, color, vel, acc } = options;
+    let { pos, size, color, vel, acc, id, parentId } = options;
+    this.id = id;
+    this.parentId = parentId | 0;
     this.pos = [pos[0], pos[1]];
     this.size = size || [50, 80];
     this.color = color || "red";
@@ -24,6 +33,7 @@ export class Car {
     this.ppos = [...this.pos];
     this.originalPos = [...this.pos];
     this.originalVel = [...this.vel];
+    this.destroyed = false;
   }
 
   get prevLeft() {
@@ -85,13 +95,21 @@ export class Car {
       this.drawImage("autocar");
     } else if (type === "power" && !collected) {
       this.drawImage("boost");
+    } else if (type === "Fuel" && !collected) {
+      this.drawImage("Fuel");
     } else if (type === "Car") {
       this.drawImage("car");
     } else if (type === "invisible" && !collected) {
       this.drawImage("invisible");
+    } else if (type === "ChildCar") {
+      this.drawImage("ChildCar");
+    } else if (type === "Bomb" && !collected) {
+      this.drawImage("Bomb");
+    } else if (type === "FiredBomb") {
+      this.drawImage("FiredBomb");
     }
   }
-  drawImage(ImagePath) {
+  drawImage(ImagePath, xDistance) {
     // var img = new Image();
     // img.src =  `https://github.com/IhssanDiba/car-driver/blob/bcd7a991b648cedc7bb61f90967078338685a06f/img/carsImges/1317286.svg`;
     if (this.level) {
@@ -132,6 +150,15 @@ export class Car {
             this.size[1]
           );
           break;
+        case "Fuel":
+          ctx.drawImage(
+            imgFuel,
+            this.pos[0],
+            this.pos[1] - this.level.cameraPos[1],
+            this.size[0],
+            this.size[1]
+          );
+          break;
         case "player":
           ctx.drawImage(
             imgPlayer,
@@ -144,6 +171,33 @@ export class Car {
         case "car":
           ctx.drawImage(
             imgCar,
+            this.pos[0],
+            this.pos[1] - this.level.cameraPos[1],
+            this.size[0],
+            this.size[1]
+          );
+          break;
+        case "ChildCar":
+          ctx.drawImage(
+            imgChildCar,
+            this.pos[0],
+            this.pos[1] - this.level.cameraPos[1],
+            this.size[0],
+            this.size[1]
+          );
+          break;
+        case "Bomb":
+          ctx.drawImage(
+            imgBomb,
+            this.pos[0],
+            this.pos[1] - this.level.cameraPos[1],
+            this.size[0],
+            this.size[1]
+          );
+          break;
+        case "FiredBomb":
+          ctx.drawImage(
+            imgFiredBomb,
             this.pos[0],
             this.pos[1] - this.level.cameraPos[1],
             this.size[0],
@@ -167,6 +221,15 @@ export class Car {
     this.vel[0] *= 1 - this.friction; // Geschwindigkeit veringern
     this.pos[0] += this.vel[0] * deltaTime;
     this.pos[1] += this.vel[1] * deltaTime;
+    if (this.player) {
+      this.player.fuelStatus -= 0.000016;
+      fuelStatus.value = this.player.fuelStatus;
+      if (this.player.vel[1] === -0.15) this.player.fuelStatus -= 0.00003;
+      if (this.player.fuelStatus < 0) {
+        this.level.lost = true;
+      }
+    }
+
     this.boundToLevel();
     objs.forEach((obj) => {
       this.collideWithObj(obj).fromAbove();
@@ -174,18 +237,14 @@ export class Car {
       this.collideWithObj(obj).fromLeft();
       this.collideWithObj(obj).fromRight();
       if (this.type === "AutoCar" && this.player) {
-        this.acc = this.player.acc / 2;
-        this.acc - 0.001;
+        this.relatedActions(obj).autoCarWithPlayer();
       }
+
       if (this.type === "CrazyCar" && this.player) {
-        if (this.player.acc < 0) {
-          this.acc = 0.006;
-        } else {
-          this.acc = -0.006;
-        }
-        if (this.player.acc === 0) {
-          this.acc = 0;
-        }
+        this.relatedActions(obj).crazyCarWithPlayer();
+      }
+      if (this.parentId === obj.id) {
+        this.relatedActions(obj).parentWithChild();
       }
     });
   }
@@ -207,16 +266,10 @@ export class Car {
             if (this.type === "Car" && !obj.abilities.invisible) {
               obj.driveCar.pause();
 
-              ctx.drawImage(
-                imgFlame,
+              this.crashing(
                 this.right - 60,
-                obj.top - 90 - this.level.cameraPos[1],
-
-                100,
-                100
+                obj.top - 90 - this.level.cameraPos[1]
               );
-
-              explosion.play();
             }
 
             if (this.type === "Goal") {
@@ -227,8 +280,21 @@ export class Car {
               this.collectPower(obj);
             } else if (this.type === "Invisible") {
               this.collectAbility(obj);
+            } else if (this.type === "Bomb") {
+              this.collectBomb(obj);
+            } else if (this.type === "Fuel") {
+              this.collectFuel(obj);
             } else {
               if (!obj.abilities.invisible) this.level.lost = true;
+            }
+          }
+          if (obj.type.includes("Car")) {
+            if (this.type === "FiredBomb") {
+              this.crashing(obj.pos[0], obj.top - this.level.cameraPos[1]);
+              setTimeout(() => {
+                obj.destroyed = true;
+                this.collected = true;
+              }, 100);
             }
           }
         }
@@ -250,8 +316,19 @@ export class Car {
               this.collectPower(obj);
             } else if (this.type === "Invisible") {
               this.collectAbility(obj);
+            } else if (this.type === "Fuel") {
+              this.collectFuel(obj);
             } else {
               this.level.lost = true;
+            }
+          }
+          if (obj.type.includes("Car")) {
+            if (this.type === "FiredBomb") {
+              this.crashing(obj.pos[0], obj.top - this.level.cameraPos[1]);
+              setTimeout(() => {
+                obj.destroyed = true;
+                this.collected = true;
+              }, 100);
             }
           }
         }
@@ -264,10 +341,11 @@ export class Car {
       // this.vel[1] = 0;
       // this.setBottom(this.level.levelSize[1]);
     }
-    if (this.left <= 110 && this.level.levelSize[0] <= 600) {
+
+    if (this.left <= 110 && this.level.levelSize[0] <= 599) {
       this.setLeft(120);
       this.vel[0] = 0;
-    } else if (this.left <= 0 && this.level.levelSize[0] > 600) {
+    } else if (this.left <= 0 && this.level.levelSize[0] > 599) {
       this.setLeft(50);
     } else if (this.right >= this.level.levelSize[0]) {
       this.setRight(this.level.levelSize[0]);
@@ -303,5 +381,41 @@ export class Car {
     setTimeout(() => {
       obj.vel[1] = -0.01;
     }, 1500);
+  }
+  collectFuel(obj) {
+    if (this.collected) return;
+    this.player.fuelStatus = 1;
+    this.collected = true;
+  }
+  collectBomb(obj) {
+    if (this.collected) return;
+    obj.abilities.bombs += 1;
+    this.collected = true;
+  }
+  relatedActions(obj) {
+    return {
+      crazyCarWithPlayer: () => {
+        if (this.player.acc < 0) {
+          this.acc = 0.006;
+        } else {
+          this.acc = -0.006;
+        }
+        if (this.player.acc === 0) {
+          this.acc = 0;
+        }
+      },
+      autoCarWithPlayer: () => {
+        this.acc = this.player.acc / 2;
+        this.acc - 0.001;
+      },
+      parentWithChild: () => {
+        this.acc = obj.acc;
+        this.vel[1] = obj.vel[1] + 0.05;
+      },
+    };
+  }
+  crashing(x, y) {
+    ctx.drawImage(imgFlame, x, y, 100, 100);
+    explosion.play();
   }
 }

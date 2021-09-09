@@ -53,7 +53,7 @@ export class Game {
     hideInfoText();
     this.gameStatus = STATUS.start;
     this.currentLevel.timer.paused = false;
-    this.currentLevel.timer.start();
+    this.currentLevel.timer.startAnimating();
   }
   startNextLevel() {
     this.currentLevelIndex++;
