@@ -333,10 +333,10 @@ export class Car {
     }
 
     if (this.left <= 110 && this.level.levelSize[0] <= 599) {
-      this.setLeft(120);
+      this.setLeft(110);
       this.vel[0] = 0;
     } else if (this.left <= 0 && this.level.levelSize[0] > 599) {
-      this.setLeft(50);
+      this.setLeft(0);
     } else if (this.right >= this.level.levelSize[0]) {
       this.setRight(this.level.levelSize[0]);
       this.vel[0] = 0;
