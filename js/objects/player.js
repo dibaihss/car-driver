@@ -63,8 +63,7 @@ export class Player extends Car {
           }
           break;
       }
-
-      e.preventDefault();
+ e.preventDefault();
     });
 
     window.addEventListener("keyup", (e) => {
@@ -85,6 +84,7 @@ export class Player extends Car {
   addControlsBtnToAndroid() {
     controlbtnToLeft.addEventListener("touchstart", (e) => {
       this.acc = -this.movingSpeed;
+      e.preventDefault();
     }),
       false;
     controlbtnToLeft.addEventListener(
@@ -99,6 +99,8 @@ export class Player extends Car {
       "touchstart",
       (e) => {
         this.acc = this.movingSpeed;
+
+        e.preventDefault();
       },
       false
     );
@@ -115,6 +117,7 @@ export class Player extends Car {
       (e) => {
         this.play();
         this.vel[1] = -0.15;
+        e.preventDefault();
       },
       false
     );
@@ -123,6 +126,7 @@ export class Player extends Car {
       (e) => {
         this.puaseAudio();
         this.vel[1] = 0;
+        e.preventDefault();
       },
       false
     );
