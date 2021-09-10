@@ -31,8 +31,6 @@ export class Player extends Car {
     };
     this.startX = 0;
     this.lives = 3;
-    this.audio = document.getElementById("audio");
-    this.driveCar = document.getElementById("drive");
     this.fuelStatus = 1;
     this.sound();
   }
@@ -75,7 +73,7 @@ export class Player extends Car {
           this.acc = 0;
           break;
         case "ArrowUp":
-          this.puaseAudio();
+    
           this.vel[1] = 0;
           break;
       }
@@ -124,7 +122,7 @@ export class Player extends Car {
     controlbtnForward.addEventListener(
       "touchend",
       (e) => {
-        this.puaseAudio();
+      
         this.vel[1] = 0;
         e.preventDefault();
       },
@@ -189,13 +187,10 @@ export class Player extends Car {
   }
 
   play() {
-    this.driveCar.pause();
 
-    this.audio.play();
   }
   puaseAudio() {
-    this.audio.pause();
-    this.driveCar.play();
+ 
   }
   drawAvailableLives() {
     var x = 0;
