@@ -1,4 +1,10 @@
 import { canvas, clearCanvas, ctx } from "../canvas.js";
+import {
+  controlbtnToLeft,
+  controlbtnToRight,
+  controlbtnForward,
+  controlbtnShot,
+} from "../Htmlelement.js";
 import { Car } from "./car.js";
 import { FiredBomb } from "./firedBomb.js";
 
@@ -13,9 +19,10 @@ export class Player extends Car {
       },
       (type = "Player")
     );
-    
+
     this.addControls();
     this.addTouchControl();
+    this.addControlsBtnToAndroid();
     this.movingSpeed = 0.0053;
     this.vel[1] = -0.01;
     this.abilities = {
@@ -43,21 +50,20 @@ export class Player extends Car {
           this.vel[1] = -0.15;
 
           break;
-          case "g":
-            if (this.abilities.bombs > 0) {
-              this.abilities.bombs -= 1;
-              this.level.objects.push(
-                new FiredBomb({
-                  id: 0,
-                  pos: [this.pos[0], this.pos[1]],
-                  vel: [0, -0.5]
-                })
-              )
-            }
-  
-            break;
-          
+        case "g":
+          if (this.abilities.bombs > 0) {
+            this.abilities.bombs -= 1;
+            this.level.objects.push(
+              new FiredBomb({
+                id: 0,
+                pos: [this.pos[0], this.pos[1]],
+                vel: [0, -0.5],
+              })
+            );
+          }
+          break;
       }
+
       e.preventDefault();
     });
 
@@ -75,6 +81,68 @@ export class Player extends Car {
           break;
       }
     });
+  }
+  addControlsBtnToAndroid() {
+    controlbtnToLeft.addEventListener("touchstart", (e) => {
+      this.acc = -this.movingSpeed;
+    }),
+      false;
+    controlbtnToLeft.addEventListener(
+      "touchend",
+      (e) => {
+        this.acc = 0;
+      },
+      false
+    );
+    ////////////////////////////////////////
+    controlbtnToRight.addEventListener(
+      "touchstart",
+      (e) => {
+        this.acc = this.movingSpeed;
+      },
+      false
+    );
+    controlbtnToRight.addEventListener(
+      "touchend",
+      (e) => {
+        this.acc = 0;
+      },
+      false
+    );
+    /////////////////////////
+    controlbtnForward.addEventListener(
+      "touchstart",
+      (e) => {
+        this.play();
+        this.vel[1] = -0.15;
+      },
+      false
+    );
+    controlbtnForward.addEventListener(
+      "touchend",
+      (e) => {
+        this.puaseAudio();
+        this.vel[1] = 0;
+      },
+      false
+    );
+    //////////////////////////////////////////////////
+    controlbtnShot.addEventListener(
+      "touchstart",
+      (e) => {
+        if (this.abilities.bombs > 0) {
+          this.abilities.bombs -= 1;
+          this.level.objects.push(
+            new FiredBomb({
+              id: 0,
+              pos: [this.pos[0], this.pos[1]],
+              vel: [0, -0.5],
+            })
+          );
+        }
+      },
+      false
+    );
   }
   addTouchControl() {
     window.addEventListener(

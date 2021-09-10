@@ -45,50 +45,14 @@ export class Level {
       obj.level = this;
       if (obj.type === "Player") {
         obj.update(deltaTime, this.objects);
-        obj.draw("player");
+        obj.drawImage();
         this.player.drawAvailableLives();
         this.player.drawAvailableBombs();
-      } else if (obj.type === "AutoCar" && !obj.destroyed) {
+      } else if ( !obj.collected && !obj.destroyed) {
         obj.update(deltaTime, this.objects);
-        obj.draw("autoCar");
+        obj.drawImage();
         obj.player = this.player;
-      } else if (obj.type === "CrazyCar" && !obj.destroyed) {
-        obj.update(deltaTime, this.objects);
-        obj.draw("crazyCar");
-        obj.player = this.player;
-      } else if (obj.type === "Goal") {
-        obj.update(deltaTime, this.objects);
-        obj.draw("goal");
-        obj.player = this.player;
-      } else if (obj.type === "Power") {
-        obj.update(deltaTime, this.objects);
-        obj.draw("power", obj.collected);
-        obj.player = this.player;
-      } else if (obj.type === "Fuel") {
-        obj.update(deltaTime, this.objects);
-        obj.draw("Fuel", obj.collected);
-        obj.player = this.player;
-      } else if (obj.type === "Invisible") {
-        obj.update(deltaTime, this.objects);
-        obj.draw("invisible", obj.collected);
-        obj.player = this.player;
-      } else if (obj.type === "Car" && !obj.destroyed) {
-        obj.update(deltaTime, this.objects);
-        obj.draw("Car");
-        obj.player = this.player;
-      } else if (obj.type === "ChildCar" && !obj.destroyed) {
-        obj.update(deltaTime, this.objects);
-        obj.draw("ChildCar");
-        obj.player = this.player;
-      } else if (obj.type === "Bomb") {
-        obj.update(deltaTime, this.objects);
-        obj.draw("Bomb", obj.collected);
-        obj.player = this.player;
-      } else if (obj.type === "FiredBomb" && !obj.collected) {
-        obj.update(deltaTime, this.objects);
-        obj.draw("FiredBomb", obj.collected);
-        obj.player = this.player;
-      }
+      } 
     });
   }
   reset() {

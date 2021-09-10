@@ -32,6 +32,9 @@ main{
 main{
   color: #d61313;
 }
+#androidControlBtns{
+  display: none;
+}
 @media only screen and (max-width: 800px){
 
 #canvas{
@@ -41,12 +44,33 @@ main{
 #info{
  display: none;
 }
+#androidControlBtns{
+ display: flex;
+
+  position: absolute;
+bottom: 8%;
+right: 60%;
+width: 50px;
+
+}
+.controleBtn{
+margin: 5px;
+}
   #btn{
-    width: 100px;
     position: absolute;
+    width: 100px;
     top: 60%;
     text-align: center;
     font-size: larger;
     background-color: #d6d313;
+}
+#fuelStatus{
+  width: 100px;
+  position: absolute;
+
+bottom: 0;
+margin-right: 200px;
+ 
+
 }
 }

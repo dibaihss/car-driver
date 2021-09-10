@@ -81,41 +81,12 @@ export class Car {
   setBottom(val) {
     this.pos[1] = val - this.size[1];
   }
-  draw(type = null, collected) {
-    if (type === "player") {
-      if (this.abilities.invisible) {
-        this.drawImage("invisible");
-      } else {
-        this.drawImage("player");
-      }
-    } else if (type === "goal") {
-      this.drawImage("goal");
-    } else if (type === "crazyCar") {
-      this.drawImage("crazycar");
-    } else if (type === "autoCar") {
-      this.drawImage("autocar");
-    } else if (type === "power" && !collected) {
-      this.drawImage("boost");
-    } else if (type === "Fuel" && !collected) {
-      this.drawImage("Fuel");
-    } else if (type === "Car") {
-      this.drawImage("car");
-    } else if (type === "invisible" && !collected) {
-      this.drawImage("invisible");
-    } else if (type === "ChildCar") {
-      this.drawImage("ChildCar");
-    } else if (type === "Bomb" && !collected) {
-      this.drawImage("Bomb");
-    } else if (type === "FiredBomb") {
-      this.drawImage("FiredBomb");
-    }
-  }
-  drawImage(ImagePath, xDistance) {
+  drawImage() {
     // var img = new Image();
     // img.src =  `https://github.com/IhssanDiba/car-driver/blob/bcd7a991b648cedc7bb61f90967078338685a06f/img/carsImges/1317286.svg`;
     if (this.level) {
-      switch (ImagePath) {
-        case "autocar":
+      switch (this.type) {
+        case "AutoCar":
           ctx.drawImage(
             imgAutoCar,
             this.pos[0],
@@ -124,7 +95,7 @@ export class Car {
             this.size[1]
           );
           break;
-        case "crazycar":
+        case "CrazyCar":
           ctx.drawImage(
             imgCrazyCar,
             this.pos[0],
@@ -133,7 +104,7 @@ export class Car {
             this.size[1]
           );
           break;
-        case "invisible":
+        case "Invisible":
           ctx.drawImage(
             imgInvisible,
             this.pos[0],
@@ -142,7 +113,7 @@ export class Car {
             this.size[1]
           );
           break;
-        case "boost":
+        case "Power":
           ctx.drawImage(
             imgBoost,
             this.pos[0],
@@ -160,16 +131,27 @@ export class Car {
             this.size[1]
           );
           break;
-        case "player":
-          ctx.drawImage(
-            imgPlayer,
-            this.pos[0],
-            this.pos[1] - this.level.cameraPos[1],
-            this.size[0],
-            this.size[1]
-          );
+        case "Player":
+          if (this.abilities.invisible) {
+            ctx.drawImage(
+              imgInvisible,
+              this.pos[0],
+              this.pos[1] - this.level.cameraPos[1],
+              this.size[0],
+              this.size[1]
+            );
+          } else {
+            ctx.drawImage(
+              imgPlayer,
+              this.pos[0],
+              this.pos[1] - this.level.cameraPos[1],
+              this.size[0],
+              this.size[1]
+            );
+          }
+
           break;
-        case "car":
+        case "Car":
           ctx.drawImage(
             imgCar,
             this.pos[0],
@@ -205,7 +187,7 @@ export class Car {
             this.size[1]
           );
           break;
-        case "goal":
+        case "Goal":
           ctx.drawImage(
             imgGoal,
             this.pos[0],
@@ -227,7 +209,7 @@ export class Car {
       fuelStatus.value = this.player.fuelStatus;
       if (this.player.vel[1] === -0.15) this.player.fuelStatus -= 0.00003;
       if (this.player.fuelStatus < 0) {
-        showInfoText('You dont have fuel any more!')
+        showInfoText("You dont have fuel any more!");
         this.level.lost = true;
       }
     }
@@ -286,12 +268,10 @@ export class Car {
             } else if (this.type === "Fuel") {
               this.collectFuel(obj);
             } else {
-              if (!obj.abilities.invisible){
+              if (!obj.abilities.invisible) {
                 showInfoText("Game Over");
                 this.level.lost = true;
-              console.log(this)
-
-              } 
+              }
             }
           }
           if (obj.type.includes("Car")) {
@@ -325,7 +305,6 @@ export class Car {
             } else if (this.type === "Fuel") {
               this.collectFuel(obj);
             } else {
-              console.log(this)
               showInfoText("Game Over");
               this.level.lost = true;
             }
