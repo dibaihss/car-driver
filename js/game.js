@@ -1,4 +1,5 @@
 import { canvas, changeBackground, Startbtn } from "./canvas.js";
+import { controlbtnChangeLevel } from "./Htmlelement.js";
 import { hideInfoText, showInfoText } from "./info.js";
 
 const STATUS = {
@@ -40,7 +41,6 @@ export class Game {
     return this.levelList[this.currentLevelIndex];
   }
   gameStart() {
-
     this.levelList[this.currentLevelIndex].startLevel();
     this.gameStatus = STATUS.start;
   }
@@ -57,25 +57,24 @@ export class Game {
   }
   startNextLevel() {
     this.currentLevelIndex++;
-   
-      if (this.currentLevel) {
-        this.currentLevel.startLevel();
 
-        if (this.currentLevel.hint) {
-          this.gamePause();
-          setTimeout(() => {
-            showInfoText(this.currentLevel.hint);
+    if (this.currentLevel) {
+      this.currentLevel.startLevel();
 
-            Startbtn.style.display = "block";
-          }, 1001);
-        }
-        if (this.currentLevel.background) {
-          changeBackground(this.currentLevel.background);
-        }
-      } else {
-        showInfoText("You have won all levels!");
+      if (this.currentLevel.hint) {
+        this.gamePause();
+        setTimeout(() => {
+          showInfoText(this.currentLevel.hint);
+
+          Startbtn.style.display = "block";
+        }, 1001);
       }
-    
+      if (this.currentLevel.background) {
+        changeBackground(this.currentLevel.background);
+      }
+    } else {
+      showInfoText("You have won all levels!");
+    }
   }
   androidControle() {
     Startbtn.addEventListener("click", (e) => {
@@ -90,6 +89,18 @@ export class Game {
         this.gameResume();
         Startbtn.style.display = "none";
       }
+    });
+    controlbtnChangeLevel.addEventListener("click", (e) => {
+      console.log(this.levelList.length, this.currentLevelIndex)
+      if (this.levelList.length-1 === this.currentLevelIndex) {
+        window.location.reload();
+      } else {
+        this.gamePause();
+        this.currentLevelIndex++;
+        this.currentLevel.startLevel();
+      }
+
+      console.log(this.levelList.length);
     });
   }
 }

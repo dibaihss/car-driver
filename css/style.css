@@ -16,10 +16,13 @@ main{
     background-repeat: no-repeat;
   }
 #fuelStatus{
-  width: 200px;
-  position: absolute;
-  margin-top: 700px;
-  margin-left: 350px;
+
+ 
+  
+}
+#toolAbove{
+   position: absolute;margin-top: 700px;
+  margin-left: 350px;  width: 200px;
 }
   #info{
     width: 200px;
@@ -72,9 +75,14 @@ background: #d6d31391;
 }
 #fuelStatus{
   width: 50px;
+  margin-left: 40px;
+}
+#toolAbove{
+    width: 50px;
   margin-top: 0px;
   margin-left: 0px;
-top: 8%;
-right: 8%;
+top: 5%;
+right: 20%;
 }
+
 }

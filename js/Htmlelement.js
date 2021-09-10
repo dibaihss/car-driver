@@ -20,3 +20,5 @@ export const controlbtnToLeft = document.getElementById("controlbtnToLeft");
 export const controlbtnForward = document.getElementById("controlbtnForward");
 export const controlbtnToRight = document.getElementById("controlbtnToRight");
 export const controlbtnShot = document.getElementById("controlbtnShot");
+export const controlbtnChangeLevel = document.getElementById("controlbtnChangeLevel");
+
