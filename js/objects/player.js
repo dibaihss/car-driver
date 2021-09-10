@@ -115,7 +115,7 @@ export class Player extends Car {
     controlbtnForward.addEventListener(
       "touchstart",
       (e) => {
-        this.play();
+      
         this.vel[1] = -0.15;
         e.preventDefault();
       },
@@ -185,7 +185,7 @@ export class Player extends Car {
     );
   }
   sound() {
-    this.driveCar.play();
+    // this.driveCar.play();
   }
 
   play() {
