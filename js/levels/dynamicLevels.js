@@ -419,6 +419,14 @@ var levelDesigner = [
         pos: [314, 2046],
       },
       {
+        id: 55,
+        type: "Fuel",
+        threeDPos: "translate3d(129px, -8583px, 0px)",
+        parentId: 0,
+        size: [50, 60],
+        pos: [178, 2046],
+      },
+      {
         id: 13,
         type: "car",
         threeDPos: "translate3d(26px, -1982px, 0px)",

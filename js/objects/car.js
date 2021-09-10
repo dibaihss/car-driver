@@ -395,8 +395,7 @@ export class Car {
         }
       },
       autoCarWithPlayer: () => {
-        this.acc = this.player.acc / 2;
-        this.acc - 0.003;
+        this.acc = this.player.acc / 4;
       },
       parentWithChild: () => {
         this.acc = obj.acc;
