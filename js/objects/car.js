@@ -248,7 +248,7 @@ export class Car {
             }
 
             if (this.type === "Car" && !obj.abilities.invisible) {
-              obj.driveCar.pause();
+        
               this.crashing(
                 this.right - 60,
                 obj.top - 90 - this.level.cameraPos[1]

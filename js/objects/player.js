@@ -44,7 +44,6 @@ export class Player extends Car {
           this.acc = this.movingSpeed;
           break;
         case "ArrowUp":
-          this.play();
           this.vel[1] = -0.15;
 
           break;
