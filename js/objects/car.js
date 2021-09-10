@@ -334,9 +334,11 @@ export class Car {
       this.vel[0] = 0;
     } else if (this.left <= 0 && this.level.levelSize[0] > 599) {
       this.setLeft(50);
+
     } else if (this.right >= this.level.levelSize[0]) {
       this.setRight(this.level.levelSize[0]);
       this.vel[0] = 0;
+
     }
   }
   overLabsWith(obj) {
@@ -392,8 +394,13 @@ export class Car {
         }
       },
       autoCarWithPlayer: () => {
-        this.acc = this.player.acc / 2;
-        this.acc - 0.001;
+        if(this.player.left >= this.level.levelSize[0]){
+        
+        }else{
+                this.acc = this.player.acc / 2;
+        this.acc - 0.003;
+        }
+    
       },
       parentWithChild: () => {
         this.acc = obj.acc;
