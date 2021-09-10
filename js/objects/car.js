@@ -14,6 +14,7 @@ import {
   imgPlayer,
   imgBoost,
 } from "../Htmlelement.js";
+import { showInfoText } from "../info.js";
 import { explosion } from "../sounds.js";
 
 export class Car {
@@ -226,6 +227,7 @@ export class Car {
       fuelStatus.value = this.player.fuelStatus;
       if (this.player.vel[1] === -0.15) this.player.fuelStatus -= 0.00003;
       if (this.player.fuelStatus < 0) {
+        showInfoText('You dont have fuel any more!')
         this.level.lost = true;
       }
     }
@@ -265,7 +267,6 @@ export class Car {
 
             if (this.type === "Car" && !obj.abilities.invisible) {
               obj.driveCar.pause();
-
               this.crashing(
                 this.right - 60,
                 obj.top - 90 - this.level.cameraPos[1]
@@ -285,7 +286,12 @@ export class Car {
             } else if (this.type === "Fuel") {
               this.collectFuel(obj);
             } else {
-              if (!obj.abilities.invisible) this.level.lost = true;
+              if (!obj.abilities.invisible){
+                showInfoText("Game Over");
+                this.level.lost = true;
+              console.log(this)
+
+              } 
             }
           }
           if (obj.type.includes("Car")) {
@@ -319,6 +325,8 @@ export class Car {
             } else if (this.type === "Fuel") {
               this.collectFuel(obj);
             } else {
+              console.log(this)
+              showInfoText("Game Over");
               this.level.lost = true;
             }
           }

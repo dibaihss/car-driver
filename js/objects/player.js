@@ -16,7 +16,7 @@ export class Player extends Car {
     
     this.addControls();
     this.addTouchControl();
-    this.movingSpeed = 0.012;
+    this.movingSpeed = 0.0053;
     this.vel[1] = -0.01;
     this.abilities = {
       invisible: false,

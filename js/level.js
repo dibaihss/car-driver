@@ -102,7 +102,6 @@ export class Level {
   }
   checkLosing() {
     if (!this.lost) return;
-    showInfoText("Game Over");
     this.player.lives -= 1;
     this.timer.pause();
     if (this.player.lives === 0) {
