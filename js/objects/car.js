@@ -23,7 +23,7 @@ export class Car {
     this.id = id;
     this.parentId = parentId | 0;
     this.pos = [pos[0], pos[1]];
-    this.size = size || [50, 80];
+    this.size = size || [50, 80];  pos: [350, -2800],
     this.color = color || "red";
     this.type = type || "Car";
     this.vel = vel || [0, 0.2];
@@ -327,6 +327,7 @@ export class Car {
   }
   boundToLevel() {
     if (!this.level) return;
+    if(this.type === 'Goal') return;
     if (this.bottom >= this.level.levelSize[1]) {
       // this.vel[1] = 0;
       // this.setBottom(this.level.levelSize[1]);
@@ -386,9 +387,9 @@ export class Car {
     return {
       crazyCarWithPlayer: () => {
         if (this.player.acc < 0) {
-          this.acc = 0.006;
+          this.acc = 0.0030;
         } else {
-          this.acc = -0.006;
+          this.acc = -0.0030;
         }
         if (this.player.acc === 0) {
           this.acc = 0;
