@@ -11,6 +11,30 @@ var levelDesigner = [
   {
     objs: [
       {
+        id: 50,
+        type: "Bomb",
+        threeDPos: "translate3d(238px, -4168px, 0px)",
+        parentId: 0,
+        size: [50, 60],
+        pos: [277, 450],
+      },
+      {
+        id: 51,
+        type: "Bomb",
+        threeDPos: "translate3d(238px, -4168px, 0px)",
+        parentId: 0,
+        size: [50, 60],
+        pos: [190, 450],
+      },
+      {
+        id: 52,
+        type: "Bomb",
+        threeDPos: "translate3d(238px, -4168px, 0px)",
+        parentId: 0,
+        size: [50, 60],
+        pos: [150, 450],
+      },
+      {
         id: 1,
         type: "car",
         threeDPos: "translate3d(340px, 377px, 0px)",
