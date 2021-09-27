@@ -1427,8 +1427,9 @@ var levelDesigner = [
 ];
 
 var levels = [];
-var lastCarPosY = 0;
+
 for (let lev of levelDesigner) {
+  var lastCarPosY = 0;
   var ArrayOfObjs = [];
   for (let car of lev.objs) {
     switch (car.type) {
@@ -1442,6 +1443,7 @@ for (let lev of levelDesigner) {
             vel: [0, 0.2],
           })
         );
+        
         if (lastCarPosY > -car.pos[1]) lastCarPosY = -car.pos[1];
         break;
       case "AutoCar":
@@ -1458,6 +1460,9 @@ for (let lev of levelDesigner) {
           )
         );
         if (lastCarPosY > -car.pos[1]) lastCarPosY = -car.pos[1];
+  
+
+
         break;
       case "ChildCar":
         ArrayOfObjs.push(
@@ -1473,6 +1478,9 @@ for (let lev of levelDesigner) {
           )
         );
         if (lastCarPosY > -car.pos[1]) lastCarPosY = -car.pos[1];
+  
+
+
         break;
       case "CrazyCar":
         ArrayOfObjs.push(
@@ -1553,6 +1561,8 @@ for (let lev of levelDesigner) {
     return obj.type === "Goal";
   });
   if (!checkIfGoalExists) {
+    console.log(lastCarPosY)
+
     ArrayOfObjs.push(
       new Goal({
         pos: [0, lastCarPosY - 300],

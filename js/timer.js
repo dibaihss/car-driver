@@ -16,11 +16,14 @@ export class Timer {
       this.deltaTime = 1000 / 28;
 
       this.fps = 28;
-   
     }
     const selectFrame = document.getElementById("selectFrame");
+    const selectDelta = document.getElementById("selectDelta");
+
     selectFrame.addEventListener("input", (e) => {
       this.deltaTime = 1000 / e.target.value;
+    });
+    selectDelta.addEventListener("input", (e) => {
       this.fps = e.target.value;
     });
   }
