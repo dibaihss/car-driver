@@ -1561,7 +1561,6 @@ for (let lev of levelDesigner) {
     return obj.type === "Goal";
   });
   if (!checkIfGoalExists) {
-    console.log(lastCarPosY)
 
     ArrayOfObjs.push(
       new Goal({

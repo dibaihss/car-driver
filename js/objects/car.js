@@ -35,6 +35,7 @@ export class Car {
     this.originalPos = [...this.pos];
     this.originalVel = [...this.vel];
     this.destroyed = false;
+  
   }
 
   get prevLeft() {
@@ -316,8 +317,6 @@ export class Car {
                 return ob.id !== obj.id;
               });
               this.crashing(obj.pos[0], obj.top - this.level.cameraPos[1]);
-
-              // obj.destroyed = true;
               this.collected = true;
             }
           }
@@ -328,19 +327,17 @@ export class Car {
   boundToLevel() {
     if (!this.level) return;
     if(this.type === 'Goal') return;
-    if (this.bottom >= this.level.levelSize[1]) {
-      // this.vel[1] = 0;
-      // this.setBottom(this.level.levelSize[1]);
-    }
 
     if (this.left <= 110 && this.level.levelSize[0] <= 599) {
       this.setLeft(110);
-      this.vel[0] = 0;
+      this.vel[0] = 0; 
     } else if (this.left <= 0 && this.level.levelSize[0] > 599) {
       this.setLeft(0);
+
     } else if (this.right >= this.level.levelSize[0]) {
       this.setRight(this.level.levelSize[0]);
       this.vel[0] = 0;
+
     }
   }
   overLabsWith(obj) {
@@ -396,7 +393,17 @@ export class Car {
         }
       },
       autoCarWithPlayer: () => {
-        this.acc = this.player.acc / 4;
+
+        if (this.player.left <= 110 && this.player.level.levelSize[0] <= 599) {
+          this.acc =0
+        } else if (this.player.left <= 0 && this.player.level.levelSize[0] > 599) {
+          this.acc =0
+        } else if (this.player.right >= this.player.level.levelSize[0]) {
+          this.acc =0
+        }else{
+           this.acc = this.player.acc / 2;
+        }
+       
       },
       parentWithChild: () => {
         this.acc = obj.acc;
